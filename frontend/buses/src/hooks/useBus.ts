@@ -16,16 +16,23 @@ export function useBus() {
   const [buses, setBuses] = useState<Bus[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
   // Obtener todos los buses
-  const getBuses = async () => {
+  const getBuses = async (page: number = 1, size: number = 10) => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:4000/bus");
+      const apiPage = page - 1;
+      const response = await fetch(
+        `http://localhost:4000/bus?page=${apiPage}&size=${size}`
+      );
       if (!response.ok) {
         throw new Error("Error al obtener los datos de los buses");
       }
       const data = await response.json();
-      setBuses(data);
+      setBuses(data.content);
+      setTotalPages(data.totalPages);
+      setCurrentPage(page);
     } catch (err) {
       setError("Error al obtener los datos");
     } finally {
@@ -114,6 +121,9 @@ export function useBus() {
     buses,
     loading,
     error,
+    currentPage,
+    setCurrentPage,
+    totalPages,
     getBuses,
     getBusById,
     createBus,

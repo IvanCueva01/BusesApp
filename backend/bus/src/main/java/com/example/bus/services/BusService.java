@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.bus.models.BusModel;
@@ -14,8 +16,8 @@ public class BusService {
     @Autowired
     IBusRepository busRepository;
 
-    public ArrayList<BusModel> getAllBuses() {
-        return (ArrayList<BusModel>) busRepository.findAll();
+    public Page<BusModel> getAllBuses(Pageable pageable) {
+        return busRepository.findAll(pageable);
     }
 
     public Optional<BusModel> getBusById(Long id) {

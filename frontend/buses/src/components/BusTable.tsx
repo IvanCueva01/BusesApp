@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { FaPenToSquare, FaRegTrashCan, FaPlus } from "react-icons/fa6";
+import {
+  FaPenToSquare,
+  FaRegTrashCan,
+  FaPlus,
+  FaAngleRight,
+  FaAngleLeft,
+} from "react-icons/fa6";
 import { useBus } from "../hooks/useBus";
 import NewBusModal from "./NewBusModal";
 
@@ -17,6 +23,9 @@ function Tabla() {
     buses,
     loading,
     error,
+    currentPage,
+    totalPages,
+    setCurrentPage,
     getBuses,
     getBusById,
     createBus,
@@ -28,9 +37,13 @@ function Tabla() {
   const [selectedBus, setSelectedBus] = useState<BusData | null>(null);
 
   useEffect(() => {
-    getBuses();
-  }, []);
+    getBuses(currentPage);
+  }, [currentPage]);
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    getBuses(page);
+  };
   const openModal = (busData?: BusData) => {
     setSelectedBus(busData || null);
     setIsModalOpen(true);
@@ -106,6 +119,33 @@ function Tabla() {
         </tbody>
       </table>
 
+      {/* Paginación */}
+      <div className="flex justify-center mt-4">
+        <button
+          onClick={() => getBuses(currentPage - 1)}
+          className={`px-4 py-2 ${currentPage === 1 ? "hidden" : ""}`}
+        >
+          <FaAngleLeft />
+        </button>
+        {Array.from({ length: totalPages }).map((_, index) => (
+          <button
+            key={index}
+            onClick={() => handlePageChange(index + 1)}
+            className={`px-4 py-2 ${
+              currentPage === index + 1 ? "bg-blue-500 text-white" : ""
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
+
+        <button
+          onClick={() => getBuses(currentPage + 1)}
+          className={`px-4 py-2 ${currentPage === totalPages ? "hidden" : ""}`}
+        >
+          <FaAngleRight />
+        </button>
+      </div>
       {/* Modal */}
       <NewBusModal
         isOpen={isModalOpen}
