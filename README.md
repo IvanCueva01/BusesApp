@@ -35,12 +35,14 @@ El proyecto está organizado en dos carpetas principales:
      spring.datasource.url=jdbc:mysql://localhost:3306/bus
      spring.datasource.username=tu_usuario
      spring.datasource.password=tu_contraseña
-     server.port=8080
+     server.port=4000
      ```
 
 3. **Inicializar el Backend**
    - Inicia el backend. Esto creará automáticamente las tablas necesarias en la base de datos.
-   - Asegúrate de que las rutas de las API estén activas para recibir las solicitudes del cliente.
+   - Asegúrate de que las rutas de las API estén activas para recibir las solicitudes del cliente:
+     /bus, /bus/id, /marca
+   - La ruta de bus cuenta con paginación con un límite de 10 para mejorar la velocidad de respuesta. 
 
 ---
 
@@ -66,7 +68,7 @@ El proyecto está organizado en dos carpetas principales:
 
 Para que la aplicación funcione correctamente, **es necesario que el backend y el frontend estén corriendo simultáneamente**:
 
-- **Backend:** Usualmente en `http://localhost:8080`.
+- **Backend:** Usualmente en `http://localhost:4000`.
 - **Frontend:** Usualmente en `http://localhost:5173`.
 
 ---
