@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.example.bus.models.BusModel;
 import com.example.bus.models.MarcaModel;
-import com.example.bus.services.BusService;
 import com.example.bus.services.MarcaService;
 
 @RestController

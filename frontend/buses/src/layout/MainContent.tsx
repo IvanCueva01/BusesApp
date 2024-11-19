@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import BusTable from "../components/BusTable";
 import MarcaTable from "../components/MarcaTable";
+import BusCard from "../components/BusCard";
 
-type Props = {};
-
-function MainContent({}: Props) {
+function MainContent() {
   return (
     <Routes>
       <Route path="/buses" element={<BusTable />} />
+      <Route path="/buses/:id" element={<BusCard />} />
       <Route path="/marcas" element={<MarcaTable />} />
       {/* Ruta por defecto */}
       <Route

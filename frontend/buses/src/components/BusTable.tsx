@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa6";
 import { useBus } from "../hooks/useBus";
 import NewBusModal from "./NewBusModal";
+import { useNavigate } from "react-router-dom";
 
 interface BusData {
   id?: number;
@@ -27,12 +28,12 @@ function Tabla() {
     totalPages,
     setCurrentPage,
     getBuses,
-    getBusById,
     createBus,
     updateBus,
     deleteBus,
   } = useBus();
 
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBus, setSelectedBus] = useState<BusData | null>(null);
 
@@ -91,7 +92,11 @@ function Tabla() {
         </thead>
         <tbody className="text-center">
           {buses.map((bus) => (
-            <tr className="hover:bg-green-200" key={bus.id}>
+            <tr
+              className="hover:bg-green-200"
+              key={bus.id}
+              onClick={() => navigate(`/buses/${bus.id}`)}
+            >
               <td>{bus.id}</td>
               <td>{bus.numeroBus}</td>
               <td>{bus.placa}</td>
@@ -101,14 +106,20 @@ function Tabla() {
               <td className="flex justify-center">
                 <button
                   className="flex items-center mr-5"
-                  onClick={() => openModal(bus)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    openModal(bus);
+                  }}
                 >
                   <FaPenToSquare className="text-blue-600" />
                   Editar
                 </button>
                 <button
                   className="flex items-center"
-                  onClick={() => deleteBus(bus.id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    deleteBus(bus.id);
+                  }}
                 >
                   <FaRegTrashCan className="text-red-600" />
                   Eliminar
