@@ -49,8 +49,10 @@ function MarcaTable() {
 
   return (
     <div className="w-full flex flex-col justify-center items-center">
-      <div className="flex w-[90%] justify-between">
-        <h1 className="text-3xl text-center my-4">Tabla de Marcas de Buses</h1>
+      <div className="flex w-[90%] justify-between ">
+        <h1 className="text-2xl md:text-3xl text-center my-4">
+          Tabla de Marcas de Buses
+        </h1>
         <button
           className="flex items-center bg-green-600 hover:bg-green-400 text-white py-2 px-4 rounded my-4"
           onClick={() => openModal()}

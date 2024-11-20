@@ -70,7 +70,9 @@ function Tabla() {
   return (
     <div className="w-full flex flex-col justify-center items-center">
       <div className="flex w-[90%] justify-between">
-        <h1 className="text-3xl text-center my-4">Tabla de Buses</h1>
+        <h1 className="text-2xl md:text-3xl text-center my-4">
+          Tabla de Buses
+        </h1>
         <button
           className="flex items-center bg-green-600 hover:bg-green-400 text-white py-2 px-4 rounded my-4"
           onClick={() => openModal()}
@@ -78,57 +80,59 @@ function Tabla() {
           <FaPlus className="mr-2" /> Nuevo Bus
         </button>
       </div>
-      <table className="w-[90%] border border-slate-500 border-2 border-collapse my-6 mx-6">
-        <thead className="bg-slate-400">
-          <tr className="text-center text-sm">
-            <th>ID</th>
-            <th>#Bus</th>
-            <th>Placa</th>
-            <th>Marca</th>
-            <th>Estado</th>
-            <th>Fecha_Creacion</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody className="text-center">
-          {buses.map((bus) => (
-            <tr
-              className="hover:bg-green-200"
-              key={bus.id}
-              onClick={() => navigate(`/buses/${bus.id}`)}
-            >
-              <td>{bus.id}</td>
-              <td>{bus.numeroBus}</td>
-              <td>{bus.placa}</td>
-              <td>{bus.marca.nombre}</td>
-              <td>{bus.estado ? "Activo" : "Inactivo"}</td>
-              <td>{bus.fechaCreacion.toString().split("T")[0]}</td>
-              <td className="flex justify-center">
-                <button
-                  className="flex items-center mr-5"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    openModal(bus);
-                  }}
-                >
-                  <FaPenToSquare className="text-blue-600" />
-                  Editar
-                </button>
-                <button
-                  className="flex items-center"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    deleteBus(bus.id);
-                  }}
-                >
-                  <FaRegTrashCan className="text-red-600" />
-                  Eliminar
-                </button>
-              </td>
+      <div className="w-[90%] overflow-x-auto">
+        <table className="min-w-full border border-slate-500 border-2 border-collapse my-6 mx-6">
+          <thead className="bg-slate-400">
+            <tr className="text-center text-sm">
+              <th>ID</th>
+              <th>#Bus</th>
+              <th>Placa</th>
+              <th>Marca</th>
+              <th>Estado</th>
+              <th>Fecha_Creacion</th>
+              <th>Acciones</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="text-center">
+            {buses.map((bus) => (
+              <tr
+                className="hover:bg-green-200"
+                key={bus.id}
+                onClick={() => navigate(`/buses/${bus.id}`)}
+              >
+                <td>{bus.id}</td>
+                <td>{bus.numeroBus}</td>
+                <td>{bus.placa}</td>
+                <td>{bus.marca.nombre}</td>
+                <td>{bus.estado ? "Activo" : "Inactivo"}</td>
+                <td>{bus.fechaCreacion.toString().split("T")[0]}</td>
+                <td className="flex justify-center">
+                  <button
+                    className="flex items-center mr-5"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openModal(bus);
+                    }}
+                  >
+                    <FaPenToSquare className="text-blue-600" />
+                    Editar
+                  </button>
+                  <button
+                    className="flex items-center"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteBus(bus.id);
+                    }}
+                  >
+                    <FaRegTrashCan className="text-red-600" />
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {/* Paginación */}
       <div className="flex justify-center mt-4">
